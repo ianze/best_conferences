@@ -1,0 +1,79 @@
+#%RAML 0.8
+
+title: best-conferences REST API
+version: 1
+
+baseUri: https://rest.best-conferences.com
+
+/talk:
+  displayName: talk
+  description: endpoint to submit talks
+  post:
+    description: submit talk
+    body:
+      application/json:
+        schema: |
+          {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "properties": {
+              "title": {
+                "required": true,
+                "type": "string"
+              },
+              "speaker": {
+                "required": true,
+                "type": "string"
+              },
+              "abstract": {
+                "required": true,
+                "type": "string"
+              }
+            },
+            "required": ["title", "speaker", "abstract"], 
+            "type": "object"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            "schema" : |
+              {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "properties":  {
+                  "talkId": {
+                    "required": true,
+                    "type": "number"
+                  }
+                },
+                "required": ["talkId"],
+                "type": "object"
+              }
+
+  /{talk_id}:
+    displayName: talk details
+    description: retrieve talk
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/draft-04/schema#",
+                  "properties": {
+                    "title": {
+                      "required": true,
+                      "type": "string"
+                    },
+                    "speaker": {
+                      "required": true,
+                      "type": "string"
+                    },
+                    "abstract": {
+                      "required": true,
+                      "type": "string"
+                    }
+                  },
+                  "required": ["title", "speaker", "abstract"],
+                  "type": "object"
+                }
